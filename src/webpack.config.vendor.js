@@ -15,7 +15,7 @@ module.exports = (env) => {
             ]
         },
         entry: {
-            vendor: ['whatwg-fetch', 'react', 'react-dom', 'react-router-dom'],
+            vendor: ['whatwg-fetch', 'react', 'react-dom'],
         },
         output: {
             path: path.join(__dirname, 'wwwroot', 'dist'),
@@ -24,7 +24,6 @@ module.exports = (env) => {
             library: '[name]_[hash]',
         },
         plugins: [
-            extractCSS,
             new webpack.DllPlugin({
                 path: path.join(__dirname, 'wwwroot', 'dist', '[name]-manifest.json'),
                 name: '[name]_[hash]'
