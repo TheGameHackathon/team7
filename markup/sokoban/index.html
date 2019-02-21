@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sokoban</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="center">
+    <div class="fieldWrapper">
+        <table class="field">
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="wall"></td>
+                <td class="wall"></td>
+                <td class="wall"></td>
+                <td class="wall"></td>
+                <td class="wall"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="wall"></td>
+                <td class="wall"></td>
+                <td class="wall"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="wall"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="wall"></td>
+                <td class="target"></td>
+                <td class="player"></td>
+                <td class="box"></td>
+                <td></td>
+                <td></td>
+                <td class="wall"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="wall"></td>
+                <td class="wall"></td>
+                <td class="wall"></td>
+                <td></td>
+                <td class="box"></td>
+                <td class="target"></td>
+                <td class="wall"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="wall"></td>
+                <td class="target"></td>
+                <td class="wall"></td>
+                <td class="wall"></td>
+                <td class="box"></td>
+                <td></td>
+                <td class="wall"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="wall"></td>
+                <td></td>
+                <td class="wall"></td>
+                <td></td>
+                <td class="target"></td>
+                <td></td>
+                <td class="wall"></td>
+                <td class="wall"></td>
+            </tr>
+            <tr>
+                <td class="wall"></td>
+                <td class="box"></td>
+                <td></td>
+                <td class="boxOnTarget"></td>
+                <td class="box"></td>
+                <td class="box"></td>
+                <td class="target"></td>
+                <td class="wall"></td>
+            </tr>
+            <tr>
+                <td class="wall"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="target"></td>
+                <td></td>
+                <td></td>
+                <td class="wall"></td>
+            </tr>
+            <tr>
+                <td class="wall"></td>
+                <td class="wall"></td>
+                <td class="wall"></td>
+                <td class="wall"></td>
+                <td class="wall"></td>
+                <td class="wall"></td>
+                <td class="wall"></td>
+                <td class="wall"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script>
+    /*
+     * Ниже размещен код, который показывает, как добавить обработчик нажатий клавиш клавиатуры на страницу.
+     *
+     * Сейчас он только выводит код нажатой клавиши в консоль.
+     */
+
+    window.addEventListener("keydown", e => {
+        console.log(e.keyCode);
+        if (e.keyCode >= 37 && e.keyCode <= 40)
+            e.preventDefault();
+    });
+
+
+</script>
+</body>
+</html>

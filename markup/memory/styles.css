@@ -1,0 +1,19 @@
+body {
+    background-color: #137713;
+    font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.center {
+    text-align: center;
+}
+
+.fieldWrapper {
+    margin: 50px 0;
+    display: inline-block;
+    position: relative;
+}
+
+.field {
+    width: 100%;
+    border-collapse: collapse;
+}

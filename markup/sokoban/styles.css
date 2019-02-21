@@ -1,0 +1,55 @@
+body {
+    background-color: #ded6ae;
+    font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.center {
+    text-align: center;
+}
+
+.fieldWrapper {
+    margin: 50px 0;
+    display: inline-block;
+    position: relative;
+    width: 600px;
+    height: 600px;
+}
+
+.field {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.field td {
+    border: none;
+    padding: 0;
+    background-size: cover;
+}
+
+.field td:before {
+    content: '';
+    box-sizing: border-box;
+    display: block;
+    margin-top: 100%;
+}
+
+.wall {
+    background-image: url(images/bricks2.png);
+}
+
+.box {
+    background-image: url(images/package.svg);
+}
+
+.player {
+    background-image: url(images/unicorn.svg)
+}
+
+.target {
+    background-image: radial-gradient(#9000ff 0, #9000ff 15%, transparent 17%, transparent 100%)
+}
+
+.boxOnTarget {
+    background-image: url(images/package.svg);
+    filter: brightness(50%);
+}

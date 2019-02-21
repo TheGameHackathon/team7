@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2048</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="center">
+    <div class="fieldWrapper">
+        <div class="field">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+        <div class="tile tile2"
+             id="animated"
+             style="left: calc(15px + 106.25px + 15px); top: calc(15px + 106.25px + 15px)"
+         >2</div> <!--15px - отступ от края поля, 106.25px — ширина одной клетки, 15px - расстояние между клетками-->
+        <div class="tile tile4"
+             style="left: calc(15px + 106.25px + 15px); top: calc(15px + 106.25px * 3 + 15px * 3)"
+        >4</div>
+        <div class="tile tile8"
+             id="animated2"
+             style="left: calc(15px + 106.25px * 3 + 15px * 3); top: calc(15px + 106.25px * 2 + 15px * 2)"
+        >8</div>
+        <div class="tile tile16"
+             style="left: calc(15px); top: calc(15px)"
+        >16</div>
+        <div class="tile tile32"
+             style="left: calc(15px + 106.25px * 3 + 15px * 3); top: calc(15px + 106.25px + 15px)"
+        >32</div>
+    </div>
+</div>
+<script>
+
+    /* Тайлы с цифрами анимируются сами, при изменении стилей для полей left, right, top или bottom
+     * Этот пример нужен, чтобы это показать.
+     *
+     * Элементы по оси, перпендикулярной экрану (ось z) располагаются в порядке их расположения в разметке.
+     * Элемент, расположенный ниже по разметке, пройдет ниже элемента, расположенного выше по разметке.
+     *
+     * */
+
+    const animatedTile = document.getElementById('animated');
+    const animatedTile2 = document.getElementById('animated2');
+    setTimeout(() => {
+        animatedTile.style.left = 15 + 106.25 * 2 + 15 * 2 + 'px';
+        animatedTile2.style.top = 15 + 'px';
+    }, 1000);
+
+    /*
+     * Ниже размещен код, который показывает, как добавить обработчик нажатий клавиш клавиатуры на страницу.
+     *
+     * Сейчас он только выводит код нажатой клавиши в консоль.
+     */
+
+    window.addEventListener("keydown", e => {
+        console.log(e.keyCode);
+        if (e.keyCode >= 37 && e.keyCode <= 40)
+            e.preventDefault();
+    });
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+body {
+    background-color: #faf8ef;
+    font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.center {
+    text-align: center;
+}
+
+.fieldWrapper {
+    margin: 50px 0;
+    display: inline-block;
+    position: relative;
+    color: #776e65;
+}
+
+.field {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 15px;
+    grid-row-gap: 15px;
+    width: 500px;
+    height: 500px;
+    padding: 15px;
+    border-radius: 6px;
+    background-color: #bbada0;
+}
+
+.cell {
+    background-color: rgba(238, 228, 218, 0.35);
+    border-radius: 3px;
+}
+
+.tile {
+    position: absolute;
+    width: 106.25px;
+    height: 106.25px;
+    border-radius: 3px;
+    z-index: 10;
+    font-size: 55px;
+    line-height: 106.25px;
+    font-weight: bold;
+    transition-property: top, left, right, bottom;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+}
+
+.tile.tile2 {
+    background: #eee4da;
+    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0), inset 0 0 0 1px rgba(255, 255, 255, 0);
+}
+
+.tile.tile4 {
+    background: #ede0c8;
+    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0), inset 0 0 0 1px rgba(255, 255, 255, 0);
+}
+
+.tile.tile8 {
+    color: #f9f6f2;
+    background: #f2b179;
+}
+
+.tile.tile16 {
+    color: #f9f6f2;
+    background: #f59563;
+}
+
+.tile.tile32 {
+    color: #f9f6f2;
+    background: #f67c5f;
+}
+
+.tile.tile64 {
+    color: #f9f6f2;
+    background: #f65e3b;
+}
+
+.tile.tile128 {
+    color: #f9f6f2;
+    background: #edcf72;
+    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.2381), inset 0 0 0 1px rgba(255, 255, 255, 0.14286);
+    font-size: 45px;
+}
+
+@media screen and (max-width: 520px) {
+    .tile.tile128 {
+        font-size: 25px;
+    }
+}
+
+.tile.tile256 {
+    color: #f9f6f2;
+    background: #edcc61;
+    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.31746), inset 0 0 0 1px rgba(255, 255, 255, 0.19048);
+    font-size: 45px;
+}
+
+@media screen and (max-width: 520px) {
+    .tile.tile256 {
+        font-size: 25px;
+    }
+}
+
+.tile.tile512 {
+    color: #f9f6f2;
+    background: #edc850;
+    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.39683), inset 0 0 0 1px rgba(255, 255, 255, 0.2381);
+    font-size: 45px;
+}
+
+@media screen and (max-width: 520px) {
+    .tile.tile512 {
+        font-size: 25px;
+    }
+}
+
+.tile.tile1024 {
+    color: #f9f6f2;
+    background: #edc53f;
+    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.47619), inset 0 0 0 1px rgba(255, 255, 255, 0.28571);
+    font-size: 35px;
+}
+
+@media screen and (max-width: 520px) {
+    .tile.tile1024 {
+        font-size: 15px;
+    }
+}
+
+.tile.tile2048 {
+    color: #f9f6f2;
+    background: #edc22e;
+    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.55556), inset 0 0 0 1px rgba(255, 255, 255, 0.33333);
+    font-size: 35px;
+}
+
+@media screen and (max-width: 520px) {
+    .tile.tile2048 {
+        font-size: 15px;
+    }
+}
+
+.tile.tilesuper {
+    color: #f9f6f2;
+    background: #3c3a32;
+    font-size: 30px;
+}
+
+@media screen and (max-width: 520px) {
+    .tile.tilesuper {
+        font-size: 10px;
+    }
+}
