@@ -9,15 +9,20 @@
 <div class="center">
     <div class="fieldWrapper">
         <table class="field">
-            <tr>
+            <tr> <!-- Это строка на поле -->
+                <td></td> <!-- Это ячейка на поле. Конкретно эта ячейка — пустая -->
                 <td></td>
-                <td></td>
+                <td class="wall"></td>  <!-- Это ячейка со стенкой.-->
                 <td class="wall"></td>
                 <td class="wall"></td>
                 <td class="wall"></td>
                 <td class="wall"></td>
-                <td class="wall"></td>
-                <td></td>
+                <td></td>  <!--
+                Клеток в строках может быть сколько угодно, они будут пропорционально
+                менять размер, в зависимости от количества.
+                Для того, чтобы верстка работала корректно, нужно, чтобы количество клеток в разных строках было
+                одинаково.
+                 -->
             </tr>
             <tr>
                 <td class="wall"></td>
@@ -26,32 +31,32 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td class="wall"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="wall"></td>
+                <td class="target"></td> <!-- Это ячейка цели, на которую нужно поставить ящик.-->
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="wall"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="wall"></td>
+                <td class="wall"></td>
+                <td class="wall"></td>
+                <td></td>
+                <td class="box"></td>
+                <td class="target"></td>
                 <td class="wall"></td>
                 <td></td>
             </tr>
             <tr>
                 <td class="wall"></td>
                 <td class="target"></td>
-                <td class="player"></td>
-                <td class="box"></td>
-                <td></td>
-                <td></td>
-                <td class="wall"></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td class="wall"></td>
-                <td class="wall"></td>
-                <td class="wall"></td>
-                <td></td>
-                <td class="box"></td>
-                <td class="target"></td>
-                <td class="wall"></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td class="wall"></td>
-                <td class="target"></td>
                 <td class="wall"></td>
                 <td class="wall"></td>
                 <td class="box"></td>
@@ -71,11 +76,11 @@
             </tr>
             <tr>
                 <td class="wall"></td>
-                <td class="box"></td>
                 <td></td>
-                <td class="boxOnTarget"></td>
-                <td class="box"></td>
-                <td class="box"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td class="target"></td>
                 <td class="wall"></td>
             </tr>
@@ -100,9 +105,55 @@
                 <td class="wall"></td>
             </tr>
         </table>
+        <!-- Все элементы ниже — передвигаемые части поля. Чтобы они корректно двигались, у них есть класс
+        movablePart. Второй класс говорит о том, какую картинку показывать.
+        Идентификаторы (аргументы id) нужны для работы скрипта ниже. В твоем коде вместо них нужно будет писать стили
+         left и top.
+         -->
+        <div class="movablePart player" id="demo1"></div> <!-- Это игрок.-->
+        <div class="movablePart box" id="demo2"></div> <!-- Это ящик.-->
+        <div class="movablePart box" id="demo3"></div>
+        <div class="movablePart box" id="demo4"></div>
+        <div class="movablePart box" id="demo5"></div>
+        <div class="movablePart boxOnTarget" id="demo6"></div> <!-- Это ящик, стоящий на целевой клетке.-->
+        <div class="movablePart box" id="demo7"></div>
+        <div class="movablePart box" id="demo8"></div>
     </div>
 </div>
 <script>
+    const TABLE_WIDTH = 600; /* Ширина таблицы константа, заданная с css */
+
+    const cellsInRowAmount = 8; /* Количество ячеек в строке определяет их размер  */
+    const cellSize = TABLE_WIDTH / cellsInRowAmount;
+
+    const movableParts = document.querySelectorAll('.movablePart');
+    /* у всех движущихся элементов ширина и высота будут одинаковые: равные размеру ячейки */
+    movableParts.forEach(el => {
+        el.style.width = cellSize + 'px';
+        el.style.height = cellSize + 'px';
+    });
+
+    const positions = [[2,2], [2,3], [3,4], [4,4], [6,1], [6,3], [6,4], [6,5]];
+    // Это демонстрационное расположение блоков
+
+    for (let i = 1; i <= positions.length; i++) {
+        const element = document.getElementById('demo' + i);
+        element.style.top = positions[i -1][0] * cellSize + 'px';
+        element.style.left = positions[i -1][1] * cellSize + 'px';
+    }
+
+
+    /*
+     * Все movablePart анимируются сами при изменении свойств left, top, right или bottom.
+     *
+     * Код ниже показывает пример этой анимации
+     * */
+
+    setTimeout(() => {
+        const element = document.getElementById('demo1');
+        element.style.left = cellSize + 'px';
+    }, 1000);
+
     /*
      * Ниже размещен код, который показывает, как добавить обработчик нажатий клавиш клавиатуры на страницу.
      *

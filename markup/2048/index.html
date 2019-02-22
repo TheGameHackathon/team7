@@ -30,14 +30,21 @@
             <div class="cell"></div>
         </div>
         <div class="tile tile2"
-             id="animated"
+             id="demo"
              style="left: calc(15px + 106.25px + 15px); top: calc(15px + 106.25px + 15px)"
-         >2</div> <!--15px - отступ от края поля, 106.25px — ширина одной клетки, 15px - расстояние между клетками-->
+         >2</div> <!-- tile – это клетки с цифрами, они располагаются поверх статичного поля с квадратиками.
+          Классы tile2, tile4... tile2048, tilesuper задают стили для клеток 2, 4...2048, >2048
+          Значение в клетке они не задают, поэтому его надо писать самому.
+          -->
         <div class="tile tile4"
              style="left: calc(15px + 106.25px + 15px); top: calc(15px + 106.25px * 3 + 15px * 3)"
-        >4</div>
+        >4</div> <!--
+            Чтобы расположить клетку на поле, нужно задать ей значение для параметра left и top, рассчитанный с
+            учетом следующих размеров:
+            15px - отступ от края поля, 106.25px — ширина или высота одной клетки, 15px - расстояние между клетками
+            -->
         <div class="tile tile8"
-             id="animated2"
+             id="demo2"
              style="left: calc(15px + 106.25px * 3 + 15px * 3); top: calc(15px + 106.25px * 2 + 15px * 2)"
         >8</div>
         <div class="tile tile16"
@@ -58,11 +65,11 @@
      *
      * */
 
-    const animatedTile = document.getElementById('animated');
-    const animatedTile2 = document.getElementById('animated2');
+    const animationDemo = document.getElementById('demo');
+    const animationDemo2 = document.getElementById('demo2');
     setTimeout(() => {
-        animatedTile.style.left = 15 + 106.25 * 2 + 15 * 2 + 'px';
-        animatedTile2.style.top = 15 + 'px';
+        animationDemo.style.left = 15 + 106.25 * 2 + 15 * 2 + 'px';
+        animationDemo2.style.top = 15 + 'px';
     }, 1000);
 
     /*

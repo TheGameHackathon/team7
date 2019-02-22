@@ -6,10 +6,69 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="center">
-    <div class="fieldWrapper">
+<table class="field">
+    <tr class="row"> <!-- Так задается строка с картами. -->
+        <td class="cell"></td> <!-- Так задается пустая ячейка. Чтобы разметка отображалась корректно, нужно,
+         чтобы в каждой строке было одинаковое количество ячеек.   -->
+        <td class="cell">
+            <div class="card" id="demo">
+                <!--
+                    Это разметка карты. В ней есть два элемента, один для лицевой стороны, другой для рубашки.
+                    Оба элемента важны для правильной работы анимации переворачивания.
+                    Лицевая сторона карты задается ссылкой на соответствующую картинку в атрибуте style
+                -->
+                <div class="cardSide cardBack"></div>
+                <div class="cardSide cardFace" style="background-image: url('images/card-joker.png')"></div>
+            </div>
+        </td>
+        <td class="cell"></td>
+        <td class="cell"></td>
+        <td class="cell"></td>
+    </tr>
+    <tr class="row">
+        <td class="cell"></td>
+        <td class="cell"></td>
+        <td class="cell">
+            <div class="card">
+                <div class="cardSide cardBack"></div>
+                <div class="cardSide cardFace" style="background-image: url('images/card-joker.png')"></div>
+            </div>
+        </td>
+        <td class="cell"></td>
+        <td class="cell"></td>
+    </tr>
+    <tr class="row">
+        <td class="cell"></td>
+        <td class="cell">
+            <div class="card cardFlipped"> <!-- Если у карты есть класс cardFlipped, она будет лежать "лицом" вверх,
+            если нет, то рубашкой вверх. -->
+                <div class="cardSide cardBack"></div>
+                <div class="cardSide cardFace" style="background-image: url('images/card-joker.png')"></div>
+            </div>
+        </td>
+        <td class="cell">
+            <div class="card">
+                <div class="cardSide cardBack"></div>
+                <div class="cardSide cardFace" style="background-image: url('images/card-joker.png')"></div>
+            </div>
+        </td>
+        <td class="cell"></td>
+        <td class="cell"></td>
+    </tr>
+</table>
 
-    </div>
-</div>
+<script>
+
+    /*
+     * Переворот карт анимируются, если добавить или убрать у карты класс cardFlipped
+     *
+     * Это образец, чтобы посмотреть, как они при этом выглядят
+     */
+    const exampleElement = document.getElementById('demo');
+
+    setTimeout(() => {
+        exampleElement.classList.add('cardFlipped');
+    }, 1000);
+</script>
 </body>
 </html>
