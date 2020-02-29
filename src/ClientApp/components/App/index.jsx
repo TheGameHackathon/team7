@@ -11,7 +11,6 @@ export default class App extends React.Component {
     }
 
     render() {
-        fetch()
         return (
             <div className={ styles.root }>
                 <div className={styles.score}>
