@@ -1,10 +1,14 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace thegame
 {
     public class Field
     {
-        private readonly static int[] supportedColorsIds = new[] {1, 2, 3, 4, 5};
+        private readonly static int[] supportedColorsIds = new[] { 1, 2, 3, 4, 5 };
 
         //private readonly int width;
         //private readonly int height;
@@ -29,8 +33,8 @@ namespace thegame
             //var randomColors = GenerareRandomColors(colorsCount).ToArray();
 
             for (var x = 0; x < field.GetLength(0); x++)
-            for (var y = 0; y < field.GetLength(1); y++)
-                field[x, y] = supportedColorsIds[random.Next(0, supportedColorsIds.Length - 1)];
+                for (var y = 0; y < field.GetLength(1); y++)
+                    field[x, y] = supportedColorsIds[random.Next(0, supportedColorsIds.Length - 1)];
 
             return field;
         }

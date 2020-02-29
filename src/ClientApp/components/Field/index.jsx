@@ -1,51 +1,43 @@
 import React from 'react';
-import styles from './styles.css';
+import styles from './styles.css'
 
 export default class Field extends React.Component {
     constructor() {
         super();
         this.state = {
-            field: [],
-        };
-    }
-
-    componentDidMount() {
-        fetch("api/game/field")
-            .then(response => response.json())
-            .then(res => this.setState({
-                field: res,
-            }));
-
-    }
-
-    generateField() {
-        var styles_c = [styles.color1, styles.color2, styles.color3, styles.color4, styles.color5];
-        var res = [];
-        console.log(this.state.field)
-        for(var k = 0; k<5; k++) {
-            var arr = [];
-            for (var i = 0; i < 5; i++) {
-                // arr.push(<td className={styles_c[this.state.field[k][i]]}/>)
-            }
-            var a = <tr>{arr}</tr>;
-            res.push(a);
+            colors: [styles.color1, styles.color2, styles.color3, styles.color4, styles.color5],
+            field: [[], [],[],[],[]]
         }
-        this.setState({ field: res } );
-        return this.state.field;
     }
 
-    render() {
+    createTable = () => {
+        let table = [];
+        for (let i = 0; i < this.state.field.length; i++) {
+            let children = [];
+            for (let j = 0; j < this.state.field[i].length; j++) {
+                children.push(<td className={this.colors[this.state.field[i][j]]}></td>)
+            }
+            table.push(<tr>{children}</tr>)
+        }
+        return table
+    }
+
+    render () {
+        this.colors = [styles.color1, styles.color2, styles.color3, styles.color4, styles.color5]
         return (
             <div className={styles.center}>
                 <div className={styles.fieldWrapper}>
                     <table className={styles.field}>
-                        {
-                            this.generateField()
-                        }
+                        {this.createTable()}
                     </table>
                 </div>
             </div>
-            // <div className={ styles.root }/>
         );
+    }
+
+    componentDidMount() {
+        fetch("api/game/field?width=5&height=5&color=5").then(response => response.json()).then(res => {
+            this.setState({ field: res });
+        })
     }
 }

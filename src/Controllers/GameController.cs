@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using thegame;
 
 namespace thegame.Controllers
 {
@@ -10,11 +11,11 @@ namespace thegame.Controllers
         {
             return Ok(50);
         }
-        
+
         [HttpGet("field")]
-        public IActionResult Field()
+        public IActionResult Field(int width, int height, int colorsCount)
         {
-            return Ok(thegame.Field.GenerateField(5, 5, 5));
+            return Ok(thegame.Field.GenerateField(width, height, colorsCount));
         }
     }
 }
