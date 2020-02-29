@@ -10,5 +10,11 @@ namespace thegame.Controllers
         {
             return Ok(50);
         }
+        
+        [HttpGet("field")]
+        public IActionResult Field()
+        {
+            return Ok(thegame.Field.GenerateField(5, 5, 5));
+        }
     }
 }
