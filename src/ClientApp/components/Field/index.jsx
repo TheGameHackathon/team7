@@ -15,12 +15,19 @@ export default class Field extends React.Component {
         for (let i = 0; i < this.state.field.length; i++) {
             let children = [];
             for (let j = 0; j < this.state.field[i].length; j++) {
-                children.push(<td className={this.colors[this.state.field[i][j]]}></td>)
+                children.push(<td className={this.colors[this.state.field[i][j]]} onClick={() => this.postPos(i, j)}/>)
             }
             table.push(<tr>{children}</tr>)
         }
         return table
-    }
+    };
+    
+    postPos = (i, j) => {
+        fetch("api/game/click", {
+            body: JSON.stringify({"y":i,"x":j}),
+            method: 'POST',
+        }).then(response => response.json())
+    };
 
     render () {
         this.colors = [styles.color1, styles.color2, styles.color3, styles.color4, styles.color5]
