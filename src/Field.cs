@@ -16,41 +16,45 @@ namespace thegame
     {
         private readonly static int[] supportedColorsIds = new[] { 1, 2, 3, 4, 5 };
 
-        private readonly int width;
-        private readonly int height;
-        private readonly int colorsCount;
+        //private readonly int width;
+        //private readonly int height;
+        //private readonly int colorsCount;
 
-        private readonly int[,] field;
+        private static int[,] field;
 
-        private readonly HashSet<Coordinates> groupCoordinates;
+        private static HashSet<Coordinates> groupCoordinates;
 
-        public Field(int width, int height, int colorsCount)
+        //public Field(int width, int height, int colorsCount)
+        //{
+        //    this.width = width;
+        //    this.height = height;
+        //    this.colorsCount = colorsCount;
+
+        //    field = GenerateField(width, height, colorsCount);
+        //    groupCoordinates = new HashSet<Coordinates>();
+        //}
+
+        public static void InitializeField(int width, int height, int colorsCount)
         {
-            this.width = width;
-            this.height = height;
-            this.colorsCount = colorsCount;
-
             field = GenerateField(width, height, colorsCount);
             groupCoordinates = new HashSet<Coordinates>();
         }
 
-        private int[,] GenerateField(int width, int height, int colorsCount)
+        private static int[,] GenerateField(int width, int height, int colorsCount)
         {
             var field = new int[width, height];
-
             var random = new Random();
-            //var randomColors = GenerareRandomColors(colorsCount).ToArray();
 
             for (var x = 0; x < field.GetLength(0); x++)
                 for (var y = 0; y < field.GetLength(1); y++)
-                    field[x, y] = supportedColorsIds[random.Next(0, supportedColorsIds.Length - 1)];
+                    field[x, y] = random.Next(0, colorsCount - 1);
 
             return field;
         }
 
-        public int[,] GetField() => field;
+        public static int[,] GetField() => field;
 
-        public int[,] ClickedTo(int x, int y)
+        public static int[,] ClickedTo(int x, int y)
         {
             var colorId = field[x, y];
             field[0, 0] = colorId;
@@ -65,7 +69,7 @@ namespace thegame
             return field;
         }
 
-        private HashSet<Coordinates> FindNeighboursByColor(int x, int y)
+        private static HashSet<Coordinates> FindNeighboursByColor(int x, int y)
         {
             var neighbours = new HashSet<Coordinates>();
             var checkedCoordinates = new HashSet<Coordinates>();
@@ -94,7 +98,7 @@ namespace thegame
             return neighbours;
         }
 
-        private IEnumerable<Coordinates> GetNeighbours(int x, int y)
+        private static IEnumerable<Coordinates> GetNeighbours(int x, int y)
         {
             for (var dx = 0; dx <= 1; dx++)
                 for (var dy = 0; dy <= 1; dy++)
