@@ -26,6 +26,7 @@ export default class Field extends React.Component {
         fetch(`api/game/click?x=${j}&y=${i}`, {
             method: 'POST',
         }).then(response => response.json())
+            .then(res => this.setState({field: res}))
     };
 
     render () {
