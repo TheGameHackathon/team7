@@ -20,4 +20,13 @@ export default class App extends React.Component {
             </div>
         );
     }
+    
+    componentDidMount() {
+        fetch("api/game/score")
+            .then(response => response.json())
+            .then(res => this.setState({
+                score: res,
+        }));
+        
+    }
 }
