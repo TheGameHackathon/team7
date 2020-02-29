@@ -6,26 +6,35 @@ using System.Threading.Tasks;
 
 namespace thegame
 {
+    internal struct Coordinates
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+    }
+
     public class Field
     {
         private readonly static int[] supportedColorsIds = new[] { 1, 2, 3, 4, 5 };
 
-        //private readonly int width;
-        //private readonly int height;
-        //private readonly int colorsCount;
+        private readonly int width;
+        private readonly int height;
+        private readonly int colorsCount;
 
-        //private readonly int[,] field;
+        private readonly int[,] field;
 
-        //public Field(int width, int height, int colorsCount)
-        //{
-        //    this.width = width;
-        //    this.height = height;
-        //    this.colorsCount = colorsCount;
+        private readonly HashSet<Coordinates> groupCoordinates;
 
-        //    field = GenerateField(width, height, colorsCount);
-        //} 
+        public Field(int width, int height, int colorsCount)
+        {
+            this.width = width;
+            this.height = height;
+            this.colorsCount = colorsCount;
 
-        public static int[,] GenerateField(int width, int height, int colorsCount)
+            field = GenerateField(width, height, colorsCount);
+            groupCoordinates = new HashSet<Coordinates>();
+        }
+
+        private int[,] GenerateField(int width, int height, int colorsCount)
         {
             var field = new int[width, height];
 
@@ -39,19 +48,57 @@ namespace thegame
             return field;
         }
 
-        //private HashSet<Color> GenerareRandomColors(int colorsCount)
-        //{
-        //    var randomColors = new HashSet<Color>();
-        //    var random = new Random();
+        public int[,] GetField() => field;
 
-        //    while (randomColors.Count != colorsCount)
-        //        randomColors.Add(
-        //            Color.FromArgb(
-        //                random.Next(0, 255),
-        //                random.Next(0, 255),
-        //                random.Next(0, 255)));
+        public int[,] ClickedTo(int x, int y)
+        {
+            var colorId = field[x, y];
+            field[0, 0] = colorId;
 
-        //    return randomColors;
-        //}
+            foreach (var n in groupCoordinates)
+                field[n.X, n.Y] = colorId;
+
+            var neighbours = FindNeighboursByColor(0, 0);
+            foreach (var n in neighbours)
+                groupCoordinates.Add(n);
+
+            return field;
+        }
+
+        private HashSet<Coordinates> FindNeighboursByColor(int x, int y)
+        {
+            var neighbours = new HashSet<Coordinates>();
+            var checkedCoordinates = new HashSet<Coordinates>();
+            var queue = new Queue<Coordinates>();
+
+            queue.Enqueue(new Coordinates { X = x, Y = y });
+
+            while (queue.Count > 0)
+            {
+                var coords = queue.Dequeue();
+
+                foreach (var neighbour in GetNeighbours(x, y)
+                    .Where(c =>
+                    c.X < field.GetLength(0) &&
+                    c.Y < field.GetLength(1) &&
+                    field[x, y] == field[c.X, c.Y] &&
+                    !checkedCoordinates.Contains(c)))
+                {
+                    neighbours.Add(neighbour);
+                    queue.Enqueue(neighbour);
+                }
+
+                checkedCoordinates.Add(coords);
+            }
+
+            return neighbours;
+        }
+
+        private IEnumerable<Coordinates> GetNeighbours(int x, int y)
+        {
+            for (var dx = 0; dx <= 1; dx++)
+                for (var dy = 0; dy <= 1; dy++)
+                    yield return new Coordinates { X = x + dx, Y = y + dy };
+        }
     }
 }
