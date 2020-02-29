@@ -83,6 +83,7 @@ namespace thegame
 
                 foreach (var neighbour in GetNeighbours(x, y)
                     .Where(c =>
+                        c.X >= 0 && c.Y >= 0 &&
                     c.X < field.GetLength(0) &&
                     c.Y < field.GetLength(1) &&
                     field[x, y] == field[c.X, c.Y] &&
@@ -100,8 +101,8 @@ namespace thegame
 
         private static IEnumerable<Coordinates> GetNeighbours(int x, int y)
         {
-            for (var dx = 0; dx <= 1; dx++)
-                for (var dy = 0; dy <= 1; dy++)
+            for (var dx = -1; dx <= 1; dx++)
+                for (var dy = -1; dy <= 1; dy++)
                     yield return new Coordinates { X = x + dx, Y = y + dy };
         }
     }
