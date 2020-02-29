@@ -17,6 +17,7 @@ export default class Field extends React.Component {
                 <div className={styles.fieldWrapper}>
                     <table className={styles.field}>
                         <tr>
+
                             <td className={this.colors[this.state.field[0][0]]}></td>
                             <td className={this.colors[this.state.field[0][1]]}></td>
                             <td className={this.colors[this.state.field[0][2]]}></td>
