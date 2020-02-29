@@ -13,9 +13,9 @@ namespace thegame.Controllers
         }
 
         [HttpGet("field")]
-        public IActionResult Field()
+        public IActionResult Field(int width, int height, int colorsCount)
         {
-            return Ok(thegame.Field.GenerateField(5, 5, 5));
+            return Ok(thegame.Field.GenerateField(width, height, colorsCount));
         }
     }
 }
