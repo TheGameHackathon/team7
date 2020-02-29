@@ -19,7 +19,7 @@ namespace thegame.Controllers
             return Ok(thegame.Field.GetField());
         }
 
-        [HttpGet("click")]
+        [HttpPost("click")]
         public IActionResult Click(int x, int y)
         {
             return Ok(thegame.Field.ClickedTo(x, y));
