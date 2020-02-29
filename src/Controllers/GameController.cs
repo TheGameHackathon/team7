@@ -15,7 +15,14 @@ namespace thegame.Controllers
         [HttpGet("field")]
         public IActionResult Field(int width, int height, int colorsCount)
         {
-            return Ok(new thegame.Field(width, height, colorsCount).GetField());
+            thegame.Field.InitializeField(width, height, colorsCount);
+            return Ok(thegame.Field.GetField());
+        }
+
+        [HttpGet("click")]
+        public IActionResult Click(int x, int y)
+        {
+            return Ok(thegame.Field.ClickedTo(x, y));
         }
     }
 }
