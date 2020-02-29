@@ -23,8 +23,7 @@ export default class Field extends React.Component {
     };
     
     postPos = (i, j) => {
-        fetch("api/game/click", {
-            body: JSON.stringify({"y":i,"x":j}),
+        fetch(`api/game/click?x=${j}&y=${i}`, {
             method: 'POST',
         }).then(response => response.json())
     };
@@ -43,7 +42,7 @@ export default class Field extends React.Component {
     }
 
     componentDidMount() {
-        fetch("api/game/field?width=5&height=5&color=5").then(response => response.json()).then(res => {
+        fetch("api/game/field?width=5&height=5&colorsCount=5").then(response => response.json()).then(res => {
             this.setState({ field: res });
         })
     }
