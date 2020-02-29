@@ -3,3 +3,56 @@
     height: 512px;
     background-color: #9a937e;
 }
+
+body {
+    background-color: #faf8ef;
+    font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.center {
+    text-align: center;
+}
+
+.fieldWrapper {
+    margin: 50px 0;
+    display: inline-block;
+    width: 600px;
+    height: 600px;
+}
+
+.field {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.field td {
+    border: none;
+    padding: 0;
+}
+
+.field td:before {
+    content: '';
+    box-sizing: border-box;
+    display: block;
+    margin-top: 100%;
+}
+
+.color1 {
+    background-color: red;
+}
+
+.color2 {
+    background-color: green;
+}
+
+.color3 {
+    background-color: cyan;
+}
+
+.color4 {
+    background-color: magenta;
+}
+
+.color5 {
+    background-color: blue;
+}
