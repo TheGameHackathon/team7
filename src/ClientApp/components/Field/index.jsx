@@ -25,11 +25,12 @@ export default class Field extends React.Component {
     postPos = (i, j) => {
         fetch(`api/game/click?x=${j}&y=${i}`, {
             method: 'POST',
-        }).then(response => response.json())
+        }).then(response => response.json()).then(res => {
+            this.setState({ field: res }); })
     };
 
     render () {
-        this.colors = [styles.color1, styles.color2, styles.color3, styles.color4, styles.color5]
+        this.colors = [styles.color1, styles.color2, styles.color3, styles.color4, styles.color5];
         return (
             <div className={styles.center}>
                 <div className={styles.fieldWrapper}>
