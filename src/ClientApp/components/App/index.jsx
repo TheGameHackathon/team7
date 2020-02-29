@@ -10,10 +10,11 @@ export default class App extends React.Component {
         };
     }
 
-    render () {
+    render() {
+        fetch()
         return (
             <div className={ styles.root }>
-                <div className={ styles.score }>
+                <div className={styles.score}>
                     Ваш счет: { this.state.score }
                 </div>
                 <Field />
