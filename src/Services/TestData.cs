@@ -24,7 +24,7 @@ namespace thegame.Services
             
             return new GameDto(testCells, true, 
                 true, width, height, Guid.Empty, 
-                movingObjectPosition.X == 0, movingObjectPosition.Y);
+                movingObjectPosition.X == 0, movingObjectPosition.Y, 0);
         }
     }
 }

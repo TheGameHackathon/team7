@@ -38,7 +38,7 @@ namespace thegame.Services
             
             return new GameDto(testCells, true, 
                 true, width, height, Guid.Empty, 
-                false, 0);
+                false, 0, 5);
         }
     }
 }

@@ -3,6 +3,7 @@ const startMessage = document.getElementsByClassName("startMessage")[0];
 const startgameOverlay = document.getElementsByClassName("start")[0];
 const scoreElement = document.getElementsByClassName("scoreContainer")[0];
 const startButton = document.getElementsByClassName("startButton")[0];
+const movesCount = document.getElementsByClassName("movesCountContainer")[0];
 let game = null;
 let currentCells = {};
 
@@ -59,6 +60,8 @@ function renderField(game) {
 function updateField(game) {
     if (game) {
         scoreElement.innerText = `Your score: ${game.score}`;
+        movesCount.innerText = `Moves: ${game.movesCount} / ${game.movesCountAllowed}`;
+        
         startMessage.innerText = `Your score: ${game.score}. Again?`;
     }
     setTimeout(
