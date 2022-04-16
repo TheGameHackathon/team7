@@ -61,7 +61,6 @@ function updateField(game) {
     if (game) {
         scoreElement.innerText = `Your score: ${game.score}`;
         movesCount.innerText = `Moves: ${game.movesCount} / ${game.movesCountAllowed}`;
-        
         startMessage.innerText = `Your score: ${game.score}. Again?`;
     }
     setTimeout(
