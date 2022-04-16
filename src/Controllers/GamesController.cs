@@ -1,16 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
-using thegame.Models;
 using thegame.Services;
 
 namespace thegame.Controllers
 {
-    [Route("api/games")]
+    [Route("api/games/{hardness}")]
     public class GamesController : Controller
     {
         [HttpPost]
-        public IActionResult Index()
+        public IActionResult Index(int hardness)
         {
-            return Ok(GamesRepo.GetOrCreateGameDto());
+            return Ok(GamesRepo.CreateGameDto(hardness));
         }
     }
 }
