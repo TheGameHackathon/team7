@@ -9,14 +9,19 @@ namespace thegame.Services
         {
             var width = 10;
             var height = 8;
-            var testCells = new[]
+            var testCells = new CellDto[width * height];
+            var random = new Random();
+            
+            for (var i = 0; i < height; i++)
             {
-                new CellDto("1", new VectorDto(2, 4), "color1", "", 0),
-                new CellDto("2", new VectorDto(5, 4), "color1", "", 0),
-                new CellDto("3", new VectorDto(3, 1), "color2", "", 20),
-                new CellDto("4", new VectorDto(1, 0), "color2", "", 20),
-                new CellDto("5", movingObjectPosition, "color4", "☺", 10),
-            };
+                for (var j = 0; j < width; j++)
+                {
+                    var color = random.Next(1, 5);
+                    testCells[i * height + j] = new CellDto($"{i * width + j}",
+                        new VectorDto(i, j), $"color{color}", "", 0);
+                }
+            }
+            
             return new GameDto(testCells, true, true, width, height, Guid.Empty, movingObjectPosition.X == 0, movingObjectPosition.Y);
         }
     }
