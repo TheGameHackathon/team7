@@ -23,6 +23,7 @@ namespace thegame.Services
         {
             var len = 0;
             var colors = 0;
+            var turns = 0;
             if (hard > 3)
                 hard = 3;
             if (hard < 1)
@@ -32,21 +33,27 @@ namespace thegame.Services
                 case 1:
                     len = 4;
                     colors = 4;
+                    turns = 5;
                     break;
                 case 3:
                     len = 8;
                     colors = 5;
+                    turns = 16;
                     break;
                 default:
                     len = 6;
                     colors = 5;
+                    turns = 10;
                     break;
             } 
-            gameDto = CreateGameDtoWithParameters(len, len, colors);
+            gameDto = CreateGameDtoWithParameters(len, len, colors, turns);
             return gameDto;
         }
 
-        private static GameDto CreateGameDtoWithParameters(int width = 8, int height = 8, int colorsCount = 5)
+        private static GameDto CreateGameDtoWithParameters(int width = 8, 
+            int height = 8, 
+            int colorsCount = 5, 
+            int turns = 5)
         {
             if (colorsCount > 5)
                 colorsCount = 5;
@@ -65,7 +72,7 @@ namespace thegame.Services
             
             return new GameDto(testCells, true, 
                 true, width, height, Guid.Empty, 
-                false, 0, 5);
+                false, 0, turns);
         }
     }
 }
