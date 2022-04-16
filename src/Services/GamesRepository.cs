@@ -19,10 +19,37 @@ namespace thegame.Services
             return gameDto;
         }
 
-        private static GameDto CreateGameDto()
+        public static GameDto CreateGameDto(int hard = 2)
         {
-            var width = 10;
-            var height = 8;
+            var len = 0;
+            var colors = 0;
+            if (hard > 3)
+                hard = 3;
+            if (hard < 1)
+                hard = 1;
+            switch (hard)
+            {
+                case 1:
+                    len = 4;
+                    colors = 4;
+                    break;
+                case 3:
+                    len = 8;
+                    colors = 5;
+                    break;
+                default:
+                    len = 6;
+                    colors = 5;
+                    break;
+            } 
+            gameDto = CreateGameDtoWithParameters(len, len, colors);
+            return gameDto;
+        }
+
+        private static GameDto CreateGameDtoWithParameters(int width = 8, int height = 8, int colorsCount = 5)
+        {
+            if (colorsCount > 5)
+                colorsCount = 5;
             var testCells = new CellDto[width * height];
             var random = new Random();
             
