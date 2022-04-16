@@ -52,7 +52,7 @@ namespace thegame.Services
                 colorsCount = 5;
             var testCells = new CellDto[width * height];
             var random = new Random();
-
+            
             for (var i = 0; i < height; i++)
             {
                 for (var j = 0; j < width; j++)
@@ -62,10 +62,10 @@ namespace thegame.Services
                         new VectorDto(j, i), $"color{color}", "", 0);
                 }
             }
-
-            return new GameDto(testCells, true,
-                true, width, height, Guid.Empty,
-                false, 0);
+            
+            return new GameDto(testCells, true, 
+                true, width, height, Guid.Empty, 
+                false, 0, 5);
         }
     }
 }

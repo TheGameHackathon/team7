@@ -18,6 +18,7 @@ namespace thegame.Controllers
             var game = GamesRepo.GetOrCreateGameDto();
             if (userInput.ClickedPos != null)
             {
+                game.MovesCount++;
                 var cell = game.Cells.First(c => 
                     c.Pos.X == userInput.ClickedPos.X 
                     && c.Pos.Y == userInput.ClickedPos.Y);
@@ -32,7 +33,13 @@ namespace thegame.Controllers
                 {
                     cellDto.Type = cell.Type;
                 }
+
+                if (catchedCells.Count == game.Cells.Length || game.MovesCount == game.MovesCountAllowed)
+                {
+                    game.IsFinished = true;
+                }
             }
+            
             return Ok(game);
         }
 
