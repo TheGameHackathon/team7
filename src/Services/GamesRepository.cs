@@ -9,7 +9,7 @@ namespace thegame.Services
     {
         private static GameDto gameDto;
 
-        public static GameDto GetOrCreateGameDto(VectorDto movingObjectPosition)
+        public static GameDto GetOrCreateGameDto()
         {
             if (gameDto == null || gameDto.IsFinished)
             {
@@ -31,8 +31,8 @@ namespace thegame.Services
                 for (var j = 0; j < width; j++)
                 {
                     var color = random.Next(1, 5);
-                    testCells[i * height + j] = new CellDto($"{i * width + j}",
-                        new VectorDto(i, j), $"color{color}", "", 0);
+                    testCells[i * width + j] = new CellDto($"{i * width + j}",
+                        new VectorDto(j, i), $"color{color}", "", 0);
                 }
             }
             
