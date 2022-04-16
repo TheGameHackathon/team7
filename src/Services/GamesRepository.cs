@@ -57,7 +57,7 @@ namespace thegame.Services
             {
                 for (var j = 0; j < width; j++)
                 {
-                    var color = random.Next(1, 5);
+                    var color = random.Next(1, colorsCount);
                     testCells[i * width + j] = new CellDto($"{i * width + j}",
                         new VectorDto(j, i), $"color{color}", "", 0);
                 }
