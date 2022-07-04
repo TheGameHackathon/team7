@@ -30,7 +30,20 @@ public class Game2048Handler : IGame2048Handler
 
     public Game MakeMove(Game game, UserMove move)
     {
-        throw new System.NotImplementedException();
+        var fieldAfterCellMerge = ComputeFieldAfterMerge(game.Cells, move);
+        var newGame = new Game
+        {
+            Id = game.Id,
+            Cells = fieldAfterCellMerge,
+            IsFinished = game.IsFinished,
+            Score = 0, // сетнуть
+            Size = game.Size
+        };
+
+        GenerateNewCell(newGame);
+        newGame.IsFinished = IsGameFinished(newGame);
+        newGame.Score = ComputeScore(newGame);
+        return newGame;
     }
 
     private Cell GenerateCell(int x, int y)
@@ -199,7 +212,7 @@ public class Game2048Handler : IGame2048Handler
         return newField;
     }
 
-    private Cell[,] ComputeNewField(Cell[,] oldField, UserMove move)
+    private Cell[,] ComputeFieldAfterMerge(Cell[,] oldField, UserMove move)
     {
         switch (move.MoveDirection)
         {
@@ -252,6 +265,91 @@ public class Game2048Handler : IGame2048Handler
         for (var i = nonEmptyCellCount; i < lineList.Count; i++)
         {
             yield return 0;
+        }
+    }
+
+    private bool IsGameFinished(Game game)
+    {
+        if (game.IsFinished)
+        {
+            return true;
+        }
+
+        for (var x = 0; x < game.Cells.GetLength(1); x++)
+        {
+            for (var y = 0; y < game.Cells.GetLength(0); y++)
+            {
+                var cell = game.Cells[y, x];
+                if (cell.Value == 0)
+                {
+                    return false;
+                }
+
+                if (GetNeighbours(game.Cells, x, y)
+                    .Any(cellNeighbour => cellNeighbour.Value == cell.Value))
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private void GenerateNewCell(Game game)
+    {
+        if (IsGameFinished(game)) // todo такое себе
+        {
+            return;
+        }
+        
+        while (true)
+        {
+            var cellIdx = rnd.Next(game.Cells.Length);
+            var (x, y) = (
+                cellIdx % game.Cells.GetLength(1),
+                cellIdx / game.Cells.GetLength(0)
+            );
+
+            if (game.Cells[y, x].Value > 0)
+            {
+                continue;
+            }
+
+            game.Cells[y, x] = GenerateCell(x, y);
+            break;
+        }
+    }
+
+    private int ComputeScore(Game game)
+    {
+        return Enumerable.Range(0, game.Cells.GetLength(0))
+            .SelectMany(y => Enumerable
+                .Range(0, game.Cells.GetLength(1))
+                .Select(x => (x, y))
+            ).Sum(coords => game.Cells[coords.y, coords.x].Value);
+    }
+
+    private IEnumerable<Cell> GetNeighbours(Cell[,] field, int x, int y)
+    {
+        if (x > 0)
+        {
+            yield return field[x - 1, y];
+        }
+
+        if (x < field.GetLength(1) - 1)
+        {
+            yield return field[x + 1, y];
+        }
+
+        if (y > 0)
+        {
+            yield return field[x, y - 1];
+        }
+
+        if (y < field.GetLength(0) - 1)
+        {
+            yield return field[x, y + 1];
         }
     }
 }
