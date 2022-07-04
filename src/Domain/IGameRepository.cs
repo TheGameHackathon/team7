@@ -9,4 +9,7 @@ public interface IGameRepository
     GameDto AddGame(GameDto game);
 
     GameDto GetGame(Guid id);
+
+    // Update by Guid
+    void Update(GameDto game);
 }
