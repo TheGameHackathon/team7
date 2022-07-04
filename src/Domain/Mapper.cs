@@ -1,22 +1,30 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using thegame.Domain.Models;
 using thegame.Models;
 
 namespace thegame.Domain;
 
-public class Mapper
+public static class Mapper
 {
-    public UserMove MapFromUserInputDtoToUserMove(UserInputDto userInput)
+    public static UserMove MapFromUserInputDtoToUserMove(UserInputDto userInput)
     {
         throw new NotImplementedException();
     }
 
-    public GameDto MapFromGameToGameDto(Game game)
+    public static GameDto MapFromGameToGameDto(Game game)
     {
+        // var cellsDto = new List<CellDto>();
+        // foreach (var cell in game.Cells)
+        // {
+        //     cellsDto.Add();
+        // }
+        
         throw new NotImplementedException();
     }
 
-    public CellDto MapFromCellToCellDto(Cell cell)
+    public static CellDto MapFromCellToCellDto(Cell cell)
     {
         throw new NotImplementedException();
     }
