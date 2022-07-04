@@ -59,7 +59,7 @@ public class MovesController : Controller
     public IActionResult MoveWithAi([FromRoute]Guid gameId)
     {
         var game = gameRepository.GetGame(gameId);
-
+        
         var computatedMove = ai.ComputeMove(game);
 
         game = game2048Handler.MakeMove(game, computatedMove);

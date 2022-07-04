@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder();
 builder.Services.AddMvc();
 builder.Services.AddSingleton<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IGame2048Handler, Game2048Handler>();
-builder.Services.AddScoped<IGame2048AI, Random2048Ai>();
+builder.Services.AddSingleton<IGame2048AI, PrettySmart2048Ai>();
 
 var app = builder.Build();
 
