@@ -281,6 +281,11 @@ public class Game2048Handler : IGame2048Handler
                     return false;
                 }
 
+                if (cell.Value == 2048)
+                {
+                    return true;
+                }
+
                 if (GetNeighbours(game.Cells, x, y)
                     .Any(cellNeighbour => cellNeighbour.Value == cell.Value))
                 {
