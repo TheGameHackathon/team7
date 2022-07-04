@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using thegame.Domain.Models;
 using thegame.Models;
 
 namespace thegame.Domain;
 
 public class GameRepository : IGameRepository
 {
-    private Dictionary<Guid, GameDto> db;
+    private Dictionary<Guid, Game> db;
 
-    public GameDto AddGame(GameDto game)
+    public Game AddGame(Game game)
     {
         if (game.Id != Guid.Empty)
         {
@@ -21,12 +22,12 @@ public class GameRepository : IGameRepository
         return game;
     }
 
-    public GameDto GetGame(Guid id)
+    public Game GetGame(Guid id)
     {
         return db.ContainsKey(id) ? db[id] : null;
     }
 
-    public void Update(GameDto game)
+    public void Update(Game game)
     {
         if(game is null) return;
         if (db.ContainsKey(game.Id))

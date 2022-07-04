@@ -1,4 +1,5 @@
 ﻿using System;
+using thegame.Domain.Models;
 using thegame.Models;
 
 namespace thegame.Domain;
@@ -6,10 +7,10 @@ namespace thegame.Domain;
 public interface IGameRepository
 {
     // Need empty Guid, returns with new Guid
-    GameDto AddGame(GameDto game);
+    Game AddGame(Game game);
 
-    GameDto GetGame(Guid id);
+    Game GetGame(Guid id);
 
     // Update by Guid
-    void Update(GameDto game);
+    void Update(Game game);
 }

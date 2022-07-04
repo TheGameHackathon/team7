@@ -1,9 +1,10 @@
-﻿using thegame.Models;
+﻿using thegame.Domain.Models;
+using thegame.Models;
 
 namespace thegame.Domain;
 
 public interface IGame2048Handler
 {
-    GameDto StartGame();
-    GameDto MakeMove(GameDto game, UserInputDto move);
+    Game StartGame();
+    Game MakeMove(Game game, UserMove move);
 }
