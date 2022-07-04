@@ -14,7 +14,7 @@ public class Game2048Handler : IGame2048Handler
     private const int CELLS_AT_START_COUNT = 2;
     private const int CELL_WITH_FOUR_PROBABILITY_PERCENT = 20;
     
-    private Random rnd = new Random();
+    private Random rnd = new();
     
     public Game StartGame()
     {
@@ -94,7 +94,7 @@ public class Game2048Handler : IGame2048Handler
 
     private IEnumerable<Cell> IterateToLeft(Cell[,] field, int y)
     {
-        for (var x = field.GetLength(1); x >= 0; x--)
+        for (var x = field.GetLength(1) - 1; x >= 0; x--)
         {
             yield return field[y, x];
         }
@@ -102,7 +102,7 @@ public class Game2048Handler : IGame2048Handler
 
     private IEnumerable<Cell> IterateToRight(Cell[,] field, int y)
     {
-        for (var x = 0; x < field.GetLength(10); x++)
+        for (var x = 0; x < field.GetLength(1); x++)
         {
             yield return field[y, x];
         }
@@ -223,7 +223,7 @@ public class Game2048Handler : IGame2048Handler
             case Direction.Up:
                 return MakeFieldOnMoveUp(oldField);
             case Direction.Down:
-                return MakeFieldOnMoveUp(oldField);
+                return MakeFieldOnMoveDown(oldField);
             default:
                 throw new ArgumentException("Unknown direction");
         }

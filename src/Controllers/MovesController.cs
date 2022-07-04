@@ -21,7 +21,7 @@ public class MovesController : Controller
         this.game2048Handler = game2048Handler;
     }
         
-    [HttpPost]
+    [HttpPost(Name = nameof(Moves))]
     public IActionResult Moves([FromRoute]Guid gameId, [FromBody]UserInputDto userInputDto)
     {
         if (userInputDto == null || gameId == Guid.Empty)
