@@ -234,17 +234,16 @@ public class Game2048Handler : IGame2048Handler
         var lineList = line.ToList();
 
         var cellToMergeWith = (Cell)null;
-        var nonEmptyCellCount = 0;
+        var newValuesCount = 0;
         foreach (var cell in lineList.Where(cell => cell.Value != 0))
         {
-            nonEmptyCellCount++;
-            
             if (cellToMergeWith is null)
             {
                 cellToMergeWith = cell;
                 continue;
             }
 
+            newValuesCount++;
             if (cellToMergeWith.Value == cell.Value)
             {
                 yield return cellToMergeWith.Value * 2;
@@ -259,10 +258,11 @@ public class Game2048Handler : IGame2048Handler
 
         if (cellToMergeWith != null)
         {
+            newValuesCount++;
             yield return cellToMergeWith.Value;
         }
 
-        for (var i = nonEmptyCellCount; i < lineList.Count; i++)
+        for (var i = newValuesCount; i < lineList.Count; i++)
         {
             yield return 0;
         }
