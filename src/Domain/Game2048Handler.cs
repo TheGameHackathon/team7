@@ -40,8 +40,12 @@ public class Game2048Handler : IGame2048Handler
             Size = game.Size
         };
 
-        GenerateNewCell(newGame);
-        newGame.IsFinished = IsGameFinished(newGame);
+        if (HasMoved(game, newGame))
+        {
+            GenerateNewCell(newGame);
+            newGame.IsFinished = IsGameFinished(newGame);
+        }
+
         newGame.Score = ComputeScore(newGame);
         return newGame;
     }
@@ -352,5 +356,35 @@ public class Game2048Handler : IGame2048Handler
         {
             yield return field[y + 1, x];
         }
+    }
+
+    private bool HasMoved(Game oldGame, Game newGame)
+    {
+        for (var x = 0; x < oldGame.Size.Width; x++)
+        {
+            for (var y = 0; y < oldGame.Size.Height; y++)
+            {
+                var (oldEmpty, newEmpty) = (
+                    oldGame.Cells[y, x].Value == 0,
+                    newGame.Cells[y, x].Value == 0
+                );
+                if (oldEmpty && newEmpty)
+                {
+                    continue;
+                }
+
+                if (oldEmpty ^ newEmpty)
+                {
+                    return true;
+                }
+                
+                if (oldGame.Cells[y, x].Id != newGame.Cells[y, x].Id)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
