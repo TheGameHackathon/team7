@@ -1,9 +1,9 @@
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using thegame.Domain;
 using thegame.Domain.Models;
 using thegame.Models;
 using thegame.Services;
+using Mapper = thegame.Domain.Mapper;
 
 namespace thegame.Controllers;
 
@@ -12,13 +12,11 @@ public class GamesController : Controller
 {
     private readonly IGameRepository gameRepository;
     private readonly IGame2048Handler game2048Handler;
-    private readonly IMapper mapper;
 
-    public GamesController(IGame2048Handler game2048Handler, IGameRepository gameRepository, IMapper mapper)
+    public GamesController(IGame2048Handler game2048Handler, IGameRepository gameRepository)
     {
         this.game2048Handler = game2048Handler;
         this.gameRepository = gameRepository;
-        this.mapper = mapper;
     }
     
     [HttpPost]
@@ -28,7 +26,7 @@ public class GamesController : Controller
 
         gameRepository.AddGame(game);
 
-        var gameDto = mapper.Map<GameDto>(game);
+        var gameDto = Mapper.MapFromGameToGameDto(game);
 
         return Ok(gameDto);
     }

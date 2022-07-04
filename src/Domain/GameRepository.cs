@@ -7,7 +7,7 @@ namespace thegame.Domain;
 
 public class GameRepository : IGameRepository
 {
-    private Dictionary<Guid, Game> db;
+    private Dictionary<Guid, Game> db = new Dictionary<Guid, Game>();
 
     public Game AddGame(Game game)
     {

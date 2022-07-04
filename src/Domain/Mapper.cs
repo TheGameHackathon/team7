@@ -28,17 +28,31 @@ public static class Mapper
 
     public static GameDto MapFromGameToGameDto(Game game)
     {
-        // var cellsDto = new List<CellDto>();
-        // foreach (var cell in game.Cells)
-        // {
-        //     cellsDto.Add();
-        // }
-        
-        throw new NotImplementedException();
+        var cellsDto = (from Cell cell in game.Cells select MapFromCellToCellDto(cell)).ToArray();
+
+        var gameDto = new GameDto(
+            cellsDto,
+            true,
+            false,
+            game.Size.Width,
+            game.Size.Height,
+            game.Id,
+            game.IsFinished,
+            game.Score);
+
+        return gameDto;
     }
 
     public static CellDto MapFromCellToCellDto(Cell cell)
     {
-        throw new NotImplementedException();
+        var position = new VectorDto {X = cell.X, Y = cell.Y};
+        var cellDto = new CellDto(
+            $"td_{cell.X}_{cell.Y}",
+            position,
+            "game2048",
+            cell.Value.ToString(),
+            1);
+
+        return cellDto;
     }
 }
