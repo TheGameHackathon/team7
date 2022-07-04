@@ -13,7 +13,7 @@ public class GameRepository : IGameRepository
     {
         if (game.Id != Guid.Empty)
         {
-            throw new InvalidOperationException("Guid already set!");
+            return null;
         }
 
         var id = Guid.NewGuid();
