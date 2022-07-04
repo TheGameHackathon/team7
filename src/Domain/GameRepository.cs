@@ -16,16 +16,22 @@ public class GameRepository : IGameRepository
         }
 
         var id = Guid.NewGuid();
-        return null;
+        game.Id = id;
+        db[id] = game;
+        return game;
     }
 
     public GameDto GetGame(Guid id)
     {
-        throw new NotImplementedException();
+        return db.ContainsKey(id) ? db[id] : null;
     }
 
     public void Update(GameDto game)
     {
-        throw new NotImplementedException();
+        if(game is null) return;
+        if (db.ContainsKey(game.Id))
+        {
+            db[game.Id] = game;
+        }
     }
 }
