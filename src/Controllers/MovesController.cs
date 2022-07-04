@@ -28,8 +28,17 @@ public class MovesController : Controller
             return BadRequest();
         
         var userMove = Mapper.MapFromUserInputDtoToUserMove(userInputDto);
-        
+
         var game = gameRepository.GetGame(gameId);
+        
+        if (userMove is null)
+        {
+            return CreatedAtRoute(
+                nameof(Moves),
+                new { gameId },
+                Mapper.MapFromGameToGameDto(game));
+        }
+        
         game = game2048Handler.MakeMove(game, userMove);
         gameRepository.Update(game);
         
