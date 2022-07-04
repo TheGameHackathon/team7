@@ -20,7 +20,9 @@
     background-color: magenta;
 }
 
-
+.label {
+    font-size: 40px;
+}
 
 /* 2048 styles */
 

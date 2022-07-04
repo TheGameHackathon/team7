@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc;
 using thegame.Domain;
 using thegame.Domain.Models;
@@ -20,9 +21,12 @@ public class GamesController : Controller
     }
     
     [HttpPost]
-    public IActionResult Index()
+    public IActionResult Index(
+        [FromQuery(Name = "fieldSize")]
+        [DefaultValue(4)]
+        int fieldSize)
     {
-        var game = game2048Handler.StartGame();
+        var game = game2048Handler.StartGame(fieldSize);
 
         gameRepository.AddGame(game);
 

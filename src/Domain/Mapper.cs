@@ -46,7 +46,8 @@ public static class Mapper
             game.Size.Height,
             game.Id,
             game.IsFinished,
-            game.Score);
+            game.Score,
+            game.Size.Width);
 
         return gameDto;
     }

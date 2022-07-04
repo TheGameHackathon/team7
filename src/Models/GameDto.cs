@@ -4,7 +4,17 @@ namespace thegame.Models;
 
 public class GameDto
 {
-    public GameDto(CellDto[] cells, bool monitorKeyboard, bool monitorMouseClicks, int width, int height, Guid id, bool isFinished, int score)
+    public GameDto(
+        CellDto[] cells, 
+        bool monitorKeyboard, 
+        bool monitorMouseClicks, 
+        int width, 
+        int height, 
+        Guid id, 
+        bool isFinished, 
+        int score,
+        int size
+        )
     {
         Cells = cells;
         MonitorKeyboard = monitorKeyboard;
@@ -14,6 +24,7 @@ public class GameDto
         Id = id;
         IsFinished = isFinished;
         Score = score;
+        Size = size;
     }
 
     public CellDto[] Cells { get; set; }
@@ -24,4 +35,6 @@ public class GameDto
     public Guid Id { get; set; }
     public bool IsFinished { get; set; }
     public int Score { get; set; }
+    
+    public int Size { get; set; }
 }

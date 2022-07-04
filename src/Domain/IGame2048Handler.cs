@@ -5,6 +5,6 @@ namespace thegame.Domain;
 
 public interface IGame2048Handler
 {
-    Game StartGame();
+    Game StartGame(int fieldSize);
     Game MakeMove(Game game, UserMove move);
 }

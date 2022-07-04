@@ -15,7 +15,8 @@ function handleApiErrors(result) {
 }
 
 async function startGame() {
-    game = await fetch("/api/games", { method: "POST" })
+    let fieldSize = document.querySelector('.fieldSize').value;
+    game = await fetch(`/api/games?fieldSize=${fieldSize}`, { method: "POST" })
         .then(handleApiErrors);
     window.history.replaceState(game.id, "The Game", "/" + game.id);
     renderField(game);
@@ -176,7 +177,7 @@ function onCellClick(e) {
 function initializePage() {
     const gameId = window.location.pathname.substring(1);
     // use gameId if you want
-    startButton.addEventListener("click", e => {
+    startButton.addEventListener("click", _ => {
         startgameOverlay.classList.toggle("hidden", true);
         startGame();
     });

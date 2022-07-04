@@ -10,15 +10,15 @@ namespace thegame.Domain;
 // todo IT SHOULDN'T USE DTOS
 public class Game2048Handler : IGame2048Handler
 {
-    private const int GAME_SIZE = 4; //todo
+    //private const int GAME_SIZE = 4;
     private const int CELLS_AT_START_COUNT = 2;
     private const int CELL_WITH_FOUR_PROBABILITY_PERCENT = 20;
     
     private Random rnd = new();
     
-    public Game StartGame()
+    public Game StartGame(int fieldSize)
     {
-        var cells = GenerateEmptyFieldCells(GAME_SIZE, GAME_SIZE);
+        var cells = GenerateEmptyFieldCells(fieldSize, fieldSize);
         var game = new Game
         {
             Size = new Size(cells.GetLength(1), cells.GetLength(0)),
