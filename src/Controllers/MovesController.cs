@@ -14,11 +14,16 @@ public class MovesController : Controller
 {
     private readonly IGameRepository gameRepository;
     private readonly IGame2048Handler game2048Handler;
+    private readonly IGame2048AI ai;
         
-    public MovesController(IGameRepository gameRepository, IGame2048Handler game2048Handler)
+    public MovesController(
+        IGameRepository gameRepository,
+        IGame2048Handler game2048Handler,
+        IGame2048AI ai)
     {
         this.gameRepository = gameRepository;
         this.game2048Handler = game2048Handler;
+        this.ai = ai;
     }
         
     [HttpPost(Name = nameof(Moves))]
@@ -46,6 +51,24 @@ public class MovesController : Controller
         
         return CreatedAtRoute(
             nameof(Moves),
+            new { gameId },
+            gameDto);
+    }
+    
+    [HttpPost("ai", Name = nameof(MoveWithAi))]
+    public IActionResult MoveWithAi([FromRoute]Guid gameId)
+    {
+        var game = gameRepository.GetGame(gameId);
+
+        var computatedMove = ai.ComputeMove(game);
+
+        game = game2048Handler.MakeMove(game, computatedMove);
+        gameRepository.Update(game);
+        
+        var gameDto = Mapper.MapFromGameToGameDto(game);
+        
+        return CreatedAtRoute(
+            nameof(MoveWithAi),
             new { gameId },
             gameDto);
     }

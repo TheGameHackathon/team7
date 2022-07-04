@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using thegame.Domain.Models;
 using thegame.Models;
@@ -7,7 +8,7 @@ namespace thegame.Domain;
 
 public class GameRepository : IGameRepository
 {
-    private Dictionary<Guid, Game> db = new Dictionary<Guid, Game>();
+    private ConcurrentDictionary<Guid, Game> db = new ();
 
     public Game AddGame(Game game)
     {
