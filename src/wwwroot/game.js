@@ -118,15 +118,46 @@ function updateCellDiv(cellDiv, cell) {
     cellDiv.innerText = cell.content;
 }
 
+let isAI = false
+let timerId = null
 
 function addKeyboardListener() {
     window.addEventListener("keydown",
         e => {
-            if (game && game.monitorKeyboard) {
+            if (game && game.monitorKeyboard && !isAI) {
                 makeMove({ keyPressed: e.keyCode });
                 if (e.keyCode >= 37 && e.keyCode <= 40 || e.keyCode === 65 || e.keyCode === 68 || e.keyCode === 83 || e.keyCode === 87)
                     e.preventDefault();
             }
+        });
+    
+    window.addEventListener("keydown",
+        e => {
+            if (game && game.monitorKeyboard){
+                if (e.keyCode === 73){
+                    isAI = !isAI
+                    if (isAI){
+                        timerId = setInterval(makeAIMove, 1000)
+                    }
+                    else if (timerId){
+                        clearInterval(timerId)
+                    }
+                }
+            }
+        })
+}
+
+function makeAIMove() {
+    if (!game || game.isFinished) return;
+    console.log("ai");
+    fetch(`/api/games/${game.id}/moves/ai`,
+        {
+            method: "POST"
+        })
+        .then(handleApiErrors)
+        .then(newGame => {
+            game = newGame;
+            updateField(game);
         });
 }
 
