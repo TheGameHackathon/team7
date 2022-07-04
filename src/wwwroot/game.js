@@ -128,7 +128,7 @@ function addKeyboardListener() {
                     e.preventDefault();
             }
         });
-};
+}
 
 function addResizeListener() {
     window.addEventListener("resize",

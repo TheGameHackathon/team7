@@ -46,14 +46,14 @@ public static class Mapper
         return gameDto;
     }
 
-    public static CellDto MapFromCellToCellDto(Cell cell)
+    private static CellDto MapFromCellToCellDto(Cell cell)
     {
         var position = new VectorDto {X = cell.X, Y = cell.Y};
         var cellDto = new CellDto(
             cell.Id.ToString(),
             position,
-            cell.Value > 0 ? $"tile-{cell.Value}" : String.Empty,
-            cell.Value > 0 ? cell.Value.ToString() : String.Empty,
+            $"tile-{cell.Value}",
+            cell.Value > 0 ? cell.Value.ToString() : string.Empty,
             1);
 
         return cellDto;
