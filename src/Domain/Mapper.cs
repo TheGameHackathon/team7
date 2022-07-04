@@ -52,9 +52,9 @@ public static class Mapper
         var cellDto = new CellDto(
             cell.Id.ToString(),
             position,
-            "game2048",
-            cell.Value.ToString(),
-            zIndex++);
+            cell.Value > 0 ? $"tile-{cell.Value}" : String.Empty,
+            cell.Value > 0 ? cell.Value.ToString() : String.Empty,
+            1);
 
         return cellDto;
     }
