@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using thegame.Domain;
 
 var builder = WebApplication.CreateBuilder();
 
 builder.Services.AddMvc();
+builder.Services.AddSingleton<IGameRepository, GameRepository>();
+builder.Services.AddSingleton<IGame2048Handler, Game2048Handler>();
 
 var app = builder.Build();
 
