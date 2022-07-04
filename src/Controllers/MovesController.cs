@@ -21,15 +21,24 @@ public class MovesController : Controller
         this.game2048Handler = game2048Handler;
     }
         
-    [HttpPost]
+    [HttpPost(Name = nameof(Moves))]
     public IActionResult Moves([FromRoute]Guid gameId, [FromBody]UserInputDto userInputDto)
     {
         if (userInputDto == null || gameId == Guid.Empty)
             return BadRequest();
         
         var userMove = Mapper.MapFromUserInputDtoToUserMove(userInputDto);
-        
+
         var game = gameRepository.GetGame(gameId);
+        
+        if (userMove is null)
+        {
+            return CreatedAtRoute(
+                nameof(Moves),
+                new { gameId },
+                Mapper.MapFromGameToGameDto(game));
+        }
+        
         game = game2048Handler.MakeMove(game, userMove);
         gameRepository.Update(game);
         
