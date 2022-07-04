@@ -9,6 +9,7 @@ namespace thegame.Domain;
 
 public static class Mapper
 {
+    private static int zIndex = 1;
     private static HashSet<int> possibleKeyCodes = new(new[] {37, 38, 39, 40});
     public static UserMove MapFromUserInputDtoToUserMove(UserInputDto userInputDto)
     {
@@ -49,11 +50,11 @@ public static class Mapper
     {
         var position = new VectorDto {X = cell.X, Y = cell.Y};
         var cellDto = new CellDto(
-            $"td_{cell.X}_{cell.Y}",
+            cell.Id.ToString(),
             position,
             "game2048",
             cell.Value.ToString(),
-            1);
+            zIndex++);
 
         return cellDto;
     }

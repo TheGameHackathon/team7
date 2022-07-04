@@ -53,6 +53,7 @@ public class Game2048Handler : IGame2048Handler
             : 2;
         return new Cell
         {
+            Id = Guid.NewGuid(),
             X = x,
             Y = y,
             Value = cellValue
@@ -68,6 +69,7 @@ public class Game2048Handler : IGame2048Handler
             {
                 cells[y, x] = new Cell
                 {
+                    Id = Guid.NewGuid(),
                     X = x,
                     Y = y,
                     Value = 0
@@ -131,14 +133,11 @@ public class Game2048Handler : IGame2048Handler
         {
             var cells = IterateToRight(oldField, y);
             var x = 0;
-            foreach (var newValue in GenerateNewLineValues(cells))
+            foreach (var newCell in GenerateNewLineValues(cells))
             {
-                newField[y, x] = new Cell
-                {
-                    X = x,
-                    Y = y,
-                    Value = newValue
-                };
+                newField[y, x] = newCell;
+                newCell.X = x;
+                newCell.Y = y;
                 x++;
             }
         }
@@ -153,14 +152,11 @@ public class Game2048Handler : IGame2048Handler
         {
             var cells = IterateToLeft(oldField, y);
             var x = 0;
-            foreach (var newValue in GenerateNewLineValues(cells).Reverse())
+            foreach (var newCell in GenerateNewLineValues(cells).Reverse())
             {
-                newField[y, x] = new Cell
-                {
-                    X = x,
-                    Y = y,
-                    Value = newValue
-                };
+                newField[y, x] = newCell;
+                newCell.X = x;
+                newCell.Y = y;
                 x++;
             }
         }
@@ -175,14 +171,12 @@ public class Game2048Handler : IGame2048Handler
         {
             var cells = IterateToDown(oldField, x);
             var y = 0;
-            foreach (var newValue in GenerateNewLineValues(cells))
+            foreach (var newCell in GenerateNewLineValues(cells))
             {
-                newField[y, x] = new Cell
-                {
-                    X = x,
-                    Y = y,
-                    Value = newValue
-                };
+                newField[y, x] = newCell;
+                newCell.X = x;
+                newCell.Y = y;
+                
                 y++;
             }
         }
@@ -197,14 +191,12 @@ public class Game2048Handler : IGame2048Handler
         {
             var cells = IterateToUp(oldField, x);
             var y = 0;
-            foreach (var newValue in GenerateNewLineValues(cells).Reverse())
+            foreach (var newCell in GenerateNewLineValues(cells).Reverse())
             {
-                newField[y, x] = new Cell
-                {
-                    X = x,
-                    Y = y,
-                    Value = newValue
-                };
+                newField[y, x] = newCell;
+                newCell.X = x;
+                newCell.Y = y;
+
                 y++;
             }
         }
@@ -229,7 +221,7 @@ public class Game2048Handler : IGame2048Handler
         }
     }
 
-    private IEnumerable<int> GenerateNewLineValues(IEnumerable<Cell> line)
+    private IEnumerable<Cell> GenerateNewLineValues(IEnumerable<Cell> line)
     {
         var lineList = line.ToList();
 
@@ -246,12 +238,12 @@ public class Game2048Handler : IGame2048Handler
             newValuesCount++;
             if (cellToMergeWith.Value == cell.Value)
             {
-                yield return cellToMergeWith.Value * 2;
+                yield return cellToMergeWith.WithValue(cellToMergeWith.Value * 2);
                 cellToMergeWith = null;
             }
             else
             {
-                yield return cellToMergeWith.Value;
+                yield return cellToMergeWith;
                 cellToMergeWith = cell;
             }
         }
@@ -259,12 +251,16 @@ public class Game2048Handler : IGame2048Handler
         if (cellToMergeWith != null)
         {
             newValuesCount++;
-            yield return cellToMergeWith.Value;
+            yield return cellToMergeWith;
         }
 
         for (var i = newValuesCount; i < lineList.Count; i++)
         {
-            yield return 0;
+            yield return new Cell
+            {
+                Id = Guid.NewGuid(),
+                Value = 0
+            };
         }
     }
 
