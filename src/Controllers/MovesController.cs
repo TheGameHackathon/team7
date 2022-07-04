@@ -59,6 +59,10 @@ public class MovesController : Controller
     public IActionResult MoveWithAi([FromRoute]Guid gameId)
     {
         var game = gameRepository.GetGame(gameId);
+        if (game is null)
+        {
+            return NotFound();
+        }
         
         var computatedMove = ai.ComputeMove(game);
 
