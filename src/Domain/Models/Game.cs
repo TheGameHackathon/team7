@@ -7,8 +7,8 @@ public class Game
 {
     public Guid Id { get; set; }
     
-    public Size size { get; set; }
-    public Cell[,] cells { get; set; }
+    public Size Size { get; set; }
+    public Cell[,] Cells { get; set; }
     
     public bool IsFinished { get; set; }
     public int Score { get; set; }
