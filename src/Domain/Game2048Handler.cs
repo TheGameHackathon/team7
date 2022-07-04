@@ -330,22 +330,22 @@ public class Game2048Handler : IGame2048Handler
     {
         if (x > 0)
         {
-            yield return field[x - 1, y];
+            yield return field[y, x - 1];
         }
 
         if (x < field.GetLength(1) - 1)
         {
-            yield return field[x + 1, y];
+            yield return field[y, x + 1];
         }
 
         if (y > 0)
         {
-            yield return field[x, y - 1];
+            yield return field[y - 1, x];
         }
 
         if (y < field.GetLength(0) - 1)
         {
-            yield return field[x, y + 1];
+            yield return field[y + 1, x];
         }
     }
 }
