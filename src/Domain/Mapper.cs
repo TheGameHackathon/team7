@@ -10,11 +10,12 @@ namespace thegame.Domain;
 public static class Mapper
 {
     private static int zIndex = 1;
-    private static HashSet<int> possibleKeyCodes = new(new[] {37, 38, 39, 40});
+    private static HashSet<int> possibleKeyCodes = new(new[] {37, 38, 39, 40, 65, 68, 83, 87});
     public static UserMove MapFromUserInputDtoToUserMove(UserInputDto userInputDto)
     {
         var keyPressed = userInputDto.KeyPressed;
         var userMove = new UserMove();
+        
         if (!possibleKeyCodes.Contains(keyPressed))
             return null;
 
@@ -23,7 +24,11 @@ public static class Mapper
             (char) 40 => Direction.Down,
             (char) 38 => Direction.Up,
             (char) 39 => Direction.Right,
-            (char) 37 => Direction.Left
+            (char) 37 => Direction.Left,
+            (char) 83 => Direction.Down,
+            (char) 87 => Direction.Up,
+            (char) 68 => Direction.Right,
+            (char) 65 => Direction.Left
         };
 
         return userMove;
