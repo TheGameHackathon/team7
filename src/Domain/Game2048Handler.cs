@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using thegame.Domain.Models;
@@ -75,6 +76,182 @@ public class Game2048Handler : IGame2048Handler
             );
 
             game.Cells[y, x] = GenerateCell(x, y);
+        }
+    }
+
+    private IEnumerable<Cell> IterateToLeft(Cell[,] field, int y)
+    {
+        for (var x = field.GetLength(1); x >= 0; x--)
+        {
+            yield return field[y, x];
+        }
+    }
+
+    private IEnumerable<Cell> IterateToRight(Cell[,] field, int y)
+    {
+        for (var x = 0; x < field.GetLength(10); x++)
+        {
+            yield return field[y, x];
+        }
+    }
+    
+    private IEnumerable<Cell> IterateToDown(Cell[,] field, int x)
+    {
+        for (var y = 0; y < field.GetLength(0); y++)
+        {
+            yield return field[y, x];
+        }
+    }
+    
+    private IEnumerable<Cell> IterateToUp(Cell[,] field, int x)
+    {
+        for (var y = field.GetLength(0) - 1; y >= 0; y--)
+        {
+            yield return field[y, x];
+        }
+    }
+
+    private Cell[,] MakeFieldOnMoveLeft(Cell[,] oldField)
+    {
+        var newField = new Cell[oldField.GetLength(0), oldField.GetLength(1)];
+        for (var y = 0; y < oldField.GetLength(0); y++)
+        {
+            var cells = IterateToRight(oldField, y);
+            var x = 0;
+            foreach (var newValue in GenerateNewLineValues(cells))
+            {
+                newField[y, x] = new Cell
+                {
+                    X = x,
+                    Y = y,
+                    Value = newValue
+                };
+                x++;
+            }
+        }
+
+        return newField;
+    }
+
+    private Cell[,] MakeFieldOnMoveRight(Cell[,] oldField)
+    {
+        var newField = new Cell[oldField.GetLength(0), oldField.GetLength(1)];
+        for (var y = oldField.GetLength(0) - 1; y >= 0; y--)
+        {
+            var cells = IterateToLeft(oldField, y);
+            var x = 0;
+            foreach (var newValue in GenerateNewLineValues(cells).Reverse())
+            {
+                newField[y, x] = new Cell
+                {
+                    X = x,
+                    Y = y,
+                    Value = newValue
+                };
+                x++;
+            }
+        }
+
+        return newField;
+    }
+
+    private Cell[,] MakeFieldOnMoveUp(Cell[,] oldField)
+    {
+        var newField = new Cell[oldField.GetLength(0), oldField.GetLength(1)];
+        for (var x = 0; x < oldField.GetLength(1); x++)
+        {
+            var cells = IterateToDown(oldField, x);
+            var y = 0;
+            foreach (var newValue in GenerateNewLineValues(cells))
+            {
+                newField[y, x] = new Cell
+                {
+                    X = x,
+                    Y = y,
+                    Value = newValue
+                };
+                y++;
+            }
+        }
+
+        return newField;
+    }
+
+    private Cell[,] MakeFieldOnMoveDown(Cell[,] oldField)
+    {
+        var newField = new Cell[oldField.GetLength(0), oldField.GetLength(1)];
+        for (var x = 0; x < oldField.GetLength(1); x++)
+        {
+            var cells = IterateToUp(oldField, x);
+            var y = 0;
+            foreach (var newValue in GenerateNewLineValues(cells).Reverse())
+            {
+                newField[y, x] = new Cell
+                {
+                    X = x,
+                    Y = y,
+                    Value = newValue
+                };
+                y++;
+            }
+        }
+
+        return newField;
+    }
+
+    private Cell[,] ComputeNewField(Cell[,] oldField, UserMove move)
+    {
+        switch (move.MoveDirection)
+        {
+            case Direction.Left:
+                return MakeFieldOnMoveLeft(oldField);
+            case Direction.Right:
+                return MakeFieldOnMoveRight(oldField);
+            case Direction.Up:
+                return MakeFieldOnMoveUp(oldField);
+            case Direction.Down:
+                return MakeFieldOnMoveUp(oldField);
+            default:
+                throw new ArgumentException("Unknown direction");
+        }
+    }
+
+    private IEnumerable<int> GenerateNewLineValues(IEnumerable<Cell> line)
+    {
+        var lineList = line.ToList();
+
+        var cellToMergeWith = (Cell)null;
+        var nonEmptyCellCount = 0;
+        foreach (var cell in lineList.Where(cell => cell.Value != 0))
+        {
+            nonEmptyCellCount++;
+            
+            if (cellToMergeWith is null)
+            {
+                cellToMergeWith = cell;
+                continue;
+            }
+
+            if (cellToMergeWith.Value == cell.Value)
+            {
+                yield return cellToMergeWith.Value * 2;
+                cellToMergeWith = null;
+            }
+            else
+            {
+                yield return cellToMergeWith.Value;
+                cellToMergeWith = cell;
+            }
+        }
+
+        if (cellToMergeWith != null)
+        {
+            yield return cellToMergeWith.Value;
+        }
+
+        for (var i = nonEmptyCellCount; i < lineList.Count; i++)
+        {
+            yield return 0;
         }
     }
 }

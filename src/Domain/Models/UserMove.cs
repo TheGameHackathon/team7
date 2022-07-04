@@ -2,5 +2,5 @@
 
 public class UserMove
 {
-    private Direction MoveDirection { get; set; }
+    public Direction MoveDirection { get; set; }
 }
